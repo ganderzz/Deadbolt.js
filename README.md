@@ -1,4 +1,4 @@
-jQuery-Validator
+Deadbolt.js
 ================
 
 Form Validation using the Data Attribute and jQuery.
