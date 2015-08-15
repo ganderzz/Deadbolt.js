@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Deadbolt.js Tester</title>
+
+        <style>
+            .input-group {
+                padding: 20px;
+            }
+            .has-error {
+                color: #FFF;
+                background: #A10022;
+            }
+            .has-success {
+                color: #FFF;
+                background: green;
+            }
+            button {
+                padding: 15px 20px 15px 20px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <form class="myForm">
+            <div class="input-group">
+                <label>Name:</label>
+                <input type="text" data-valid="endsWithIt,minLength=4" />
+            </div>
+
+            <button class="form-check">Is Valid?</button>
+        </form>
+
+
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="../deadbolt.js"></script>
+
+        <script>
+            $(function() {
+                var formCache = $(".myForm").deadbolt({
+                    endsWithIt: function() {
+                        return new RegExp(".+(it)", "i");
+                    }
+                });
+
+                $(".form-check").on("click", function(e) {
+                    e.preventDefault();
+
+                    formCache.isValid();
+                });
+            });
+        </script>
+    </body>
+</html>

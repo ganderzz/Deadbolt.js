@@ -1,62 +1,79 @@
-var isValid = (function() {
-			var queue = [];
+$.fn.deadbolt = (function() {
+    var queue = [];
+    var validators = {
+        email: function() {
+            return new RegExp(".+@.+\..+", "i");
+        },
+        minLength: function(what) {
+            return new RegExp("^(.+){" + what + ",}$", "i");
+        },
+        not: function(what) {
+            return new RegExp("^((?!" + what + ").)*$", "i");
+        },
+        digit: function() {
+            return new RegExp("^[0-9,\-]+$", "i");
+        }
+    };
 
-			function isValid(form) {
-				return new isValid.fn.init(form);
-			}
+    function deadbolt(options) {
+        return new deadbolt.fn._init(this, options);
+    }
 
-			isValid.fn = isValid.prototype = {
-				init: function(form) {
-					$(form).find("[data-valid]").each(function() {
-						var what = ($(this).data("valid").indexOf(",") > 0)? $(this).data("valid").split(",") : [$(this).data("valid")];
-						var validation = [];
+	/* Internal Functions */
+	/* _init: Initializes deadbolt - loads in form elements with corresponding varifications. / Returns: (deadbolt) */
+	/* _tester: Tests an element with its varifications to see if it passes. / Returns: (True / False) */
+    deadbolt.fn = deadbolt.prototype = {
+        _init: function(form, options) {
+            if(options !== undefined)
+            {
+                for(var key in options)
+                    validators[key] = options[key];
+            }
 
-						for(var i = 0; i < what.length; i++)
-						{
-							if(what[i].match(/email/i))
-								validation.push(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+            $(form).find("[data-valid]").each(function() {
+                var what = ($(this).data("valid").indexOf(",") > 0)? $(this).data("valid").split(",") : [$(this).data("valid")];
+                var validation = [];
 
-							if(what[i].match(/minLength/i))
-								validation.push(new RegExp("^(.+){"+what[i].split("=")[1]+",}$", "i"));
+                for (var i = 0; i < what.length; i++) {
+                    for (var key in validators) {
+                        if (what[i].match(new RegExp(key, "i")))
+                        {
+                            validation.push(validators[key](what[i].split("=")[1]));
+                        }
+                    }
+                }
+                queue.push(new Array($(this), validation));
+            });
 
-							if(what[i].match(/not/i))
-								validation.push(new RegExp("^((?!"+what[i].split("=")[1]+").)*$", "i"));
+            return deadbolt;
+        },
+        _tester: function(what, validator) {
+            for (var i = 0; i < validator.length; i++) {
+                if (!validator[i].test(what.val())) {
+                    what.parent().addClass("has-error").removeClass("has-success");
+                    return false;
+                }
+            }
+            what.parent().removeClass("has-error").addClass("has-success");
 
-							if(what[i].match(/digit/i))
-								validation.push(new RegExp("^[0-9,\-]+$", "i"));
-							
-						}
-						queue.push(new Array($(this), validation));
-					});
+            return true;
+        },
+        _addRule: function(rule) {
 
-					return isValid;
-				},
-				tester: function(what, validator) {
-						for(var i = 0; i < validator.length; i++)
-						{
-							if(!validator[i].test( what.val()) )
-							{
-								what.parent().addClass("has-error").removeClass("has-success");
-								return false;
-							}
-						}
-						what.parent().removeClass("has-error").addClass("has-success");
+            return deadbolt;
+        }
+    };
 
-						return true;
-					}
-				};
+	/* External Functions */
+    deadbolt.isValid = deadbolt.prototype = function() {
+        var tempBool = true;
+        for (var i = 0; i < queue.length; i++) {
+            if (deadbolt.fn._tester(queue[i][0], queue[i][1]) === false)
+                tempBool = false;
+        }
 
-				isValid.checkAll = isValid.prototype = function() {
-					var temp = true;
-						for(var i = 0; i < queue.length; i++)
-						{
-							if(isValid.fn.tester(queue[i][0], queue[i][1]) === false)
-								temp = false;
-						}
+        return tempBool;
+    }
 
-					return temp;
-				}
-
-			return isValid;
-		})(jQuery);
-
+    return deadbolt;
+})(jQuery);
