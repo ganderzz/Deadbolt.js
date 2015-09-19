@@ -26,6 +26,23 @@
       
       <h2>API</h2>
       
+      <h4>Validators</h4>
+      
+      Validators are the rules given to an input. These can be defined like:
+        <code>
+          <input type="text" data-valid="digit,minLength=5,not=1" />
+        </code>
+        
+      Multiple validators can be separated by commas. When Addons are created, they are applied to an input in the same way.
+      
+      <b>List of predefined Validators:</b>
+      <ul>
+        <li>email: checks if input matches an email format (ex. email@mail.com)</li>
+        <li>minLength: checks if the input has a minimum character length (Defined with an argument, <code>minLength=5</code>)</li>
+        <li>not: checks in the input does not match the defined argument (<code>not=welcome</code>)</li>
+        <li>digit: checks if the input is either a digit or symbol</li>
+      </ul>
+      
       <h4>Hello World?</h4>
       
         <pre><code>
