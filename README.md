@@ -1,7 +1,7 @@
 Deadbolt.js
 ================
 
-Nonintrusive cached form validation.
+Lightweight, nonintrusive form validation.
 
 
 An example can be seen at: http://codepen.io/ganderzz/pen/NPbOvY

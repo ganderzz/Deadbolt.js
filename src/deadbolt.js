@@ -24,28 +24,27 @@ var deadbolt = (function() {
 	/* _tester: Tests an element with its varifications to see if it passes. / Returns: BOOLEAN:(True / False) */
     deadbolt.fn = deadbolt.prototype = {
         _init: function(elem, options) {
-        	var i, qElem = document.querySelector(elem).querySelectorAll("[data-valid]");
+        	var qElem = document.querySelector(elem).querySelectorAll("[data-valid]");
 
+        	// Check if any rules are passed into instantiation function. If so, add it to the global validators object.
             if(options !== undefined)
             {
                 for(var key in options)
                     validators[key] = options[key];
             }
 
-            console.log(qElem);
-
             // Search form for data-valid attributes, then create an array combining those rules with the DOM element
-            for(i = 0; i < qElem.length; i++) {
+            for(var i = 0; i < qElem.length; i++) {
                 var validation = [],
                 	tempElem = qElem[i], 
                 	what = (tempElem.dataset.valid.indexOf(",") > 0)? tempElem.dataset.valid.split(",") : [tempElem.dataset.valid];
 
-                for (var i = 0; i < what.length; i++) {
+                // Check all rules on a DOM element. 
+                // If they match rules defined in the global validators, add the corresponding RegExp function to local validation array
+                for (var t = 0; t < what.length; t++) {
                     for (var key in validators) {
-                        if (what[i].match(new RegExp(key, "i")))
-                        {
-                            validation.push(validators[key](what[i].split("=")[1]));
-                        }
+                        if (what[t].match(new RegExp(key, "i")))
+                            validation.push(validators[key](what[t].split("=")[1]));
                     }
                 }
                 queue.push(new Array(tempElem, validation, false));
@@ -53,13 +52,16 @@ var deadbolt = (function() {
 
             return deadbolt;
         },
-        _tester: function(what, validator) {
-        	console.log(what);
+        _tester: function(input) {
+        	var what = input[0], validator = input[1], hasError = input[2];
+
             for (var i = 0; i < validator.length; i++) {
                 if (!validator[i].test(what.value)) {
-                    what.parentNode.className = "has-error";
+                    hasError = true;
+
                     return false;
                 }
+                hasError = false;
             }
 
             return true;
@@ -67,12 +69,11 @@ var deadbolt = (function() {
     };
 
 	/* External Functions */
-	/* */
+	/* isValid: Checks if all the queued elements match their rules, if so return true or false. / Returns: BOOLEAN(True / False) */
     deadbolt.isValid = deadbolt.prototype = function() {
         var tempBool = true;
-        console.log(queue);
         for (var i = 0; i < queue.length; i++) {
-            if (deadbolt.fn._tester(queue[i][0], queue[i][1]) === false)
+            if (deadbolt.fn._tester(queue[i]) === false)
                 tempBool = false;
         }
 
@@ -80,4 +81,4 @@ var deadbolt = (function() {
     }
 
     return deadbolt;
-})(jQuery);
+})();
