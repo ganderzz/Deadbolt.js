@@ -27,16 +27,21 @@
                 <input type="text" data-valid="endsWithIt,minLength=4" />
             </div>
 
+            <div class="input-group">
+                <label>Email:</label>
+                <input type="text" data-valid="email,minLength=4" />
+            </div>
+
             <button class="form-check">Is Valid?</button>
         </form>
 
 
         <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="../deadbolt.js"></script>
+        <script src="../src/deadbolt.js"></script>
 
         <script>
             $(function() {
-                var formCache = $(".myForm").deadbolt({
+                var formCache = deadbolt(".myForm", {
                     endsWithIt: function() {
                         return new RegExp(".+(it)", "i");
                     }
