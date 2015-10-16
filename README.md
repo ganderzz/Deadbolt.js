@@ -13,7 +13,7 @@ Deadbolt.js
 **v0.2**
 
 * Added support to create new rules for checking the data against
-* 
+
 **v0.1** 
 * Creation of DeadboltJs
 
