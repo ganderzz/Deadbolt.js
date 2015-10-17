@@ -4,7 +4,7 @@ Deadbolt.js
 ### Lightweight, nonintrusive form validation.
 
 #### Install
-** Using Bower **
+**Using Bower**
 ```
 bower install deadbolt
 ```
