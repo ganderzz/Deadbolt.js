@@ -1,5 +1,4 @@
 Deadbolt.js
-================
 
 ### Lightweight, nonintrusive form validation.
 ================
