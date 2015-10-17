@@ -1,5 +1,5 @@
 # Deadbolt.js
-### Lightweight, nonintrusive form validation.
+**Lightweight, nonintrusive form validation**
 ================
 
 #### Install
