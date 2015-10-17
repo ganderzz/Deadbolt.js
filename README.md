@@ -2,6 +2,7 @@ Deadbolt.js
 ================
 
 ### Lightweight, nonintrusive form validation.
+================
 
 #### Install
 **Using Bower**
@@ -9,6 +10,7 @@ Deadbolt.js
 bower install deadbolt
 ```
 
+================
 
 #### Whats new?
 **v0.3** 
