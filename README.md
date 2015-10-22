@@ -15,6 +15,7 @@ bower install deadbolt
 * Added support for applying either (has-error or has-success) to inputs that contain errors or pass, respectively.
 * Added a phone rule for ease of use.
 * Added JSDoc for two current external functions
+* 
 **v0.3** 
 * Migrated Deadbolt away from jQuery to vanilla JavaScript. 
 * Removed adding classes to elements if the element has an error or not.
