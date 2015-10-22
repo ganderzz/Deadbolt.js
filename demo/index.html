@@ -3,8 +3,35 @@
         <title>Deadbolt.js Tester</title>
 
         <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: 400;
+                letter-spacing: -0.01em;
+            }
+            input {
+                padding: 10px;
+                background: #DDD;
+                border: 0;
+            }
             .input-group {
                 padding: 20px;
+            }
+            .input-group label {
+                font-weight: 700;
+            }
+            .form-check {
+                width: 200px;
+                margin: 20px 0 0 20px;
+                cursor: pointer;
             }
             .has-error {
                 color: #FFF;
@@ -24,7 +51,7 @@
         <form class="myForm">
             <div class="input-group">
                 <label>Name:</label>
-                <input type="text" data-valid="endsWithIt,minLength=4" />
+                <input type="text" data-valid="endsWithIt" />
             </div>
 
             <div class="input-group">
@@ -36,21 +63,21 @@
         </form>
 
 
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
         <script src="../src/deadbolt.js"></script>
 
         <script>
-            $(function() {
-                var formCache = deadbolt(".myForm", {
-                    endsWithIt: function() {
-                        return new RegExp(".+(it)", "i");
-                    }
-                });
+            var formCache = deadbolt(".myForm", {
+                endsWithIt: function() {
+                    return new RegExp(".*(it)", "i");
+                }
+            });
 
-                $(".form-check").on("click", function(e) {
-                    e.preventDefault();
+            document.querySelector(".form-check").addEventListener("click", function(e) {
+                e.preventDefault();
 
-                    console.log(formCache.isValid());
+                formCache.isValid(function(form) {
+                    form.applyClass();
                 });
             });
         </script>

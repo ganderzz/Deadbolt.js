@@ -1,0 +1,31 @@
+{
+  "name": "deadbolt",
+  "version": "0.3.0",
+  "description": "A lightweight, nonintrusive data validator",
+  "main": "src/deadbolt.js",
+  "dependencies": {
+    "gulp-rename": "^1.2.2",
+    "gulp": "^3.9.0",
+    "gulp-uglify": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganderzz/Deadbolt.js.git"
+  },
+  "keywords": [
+    "deadbolt",
+    "form",
+    "validation",
+    "javascript"
+  ],
+  "author": "= (=)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ganderzz/Deadbolt.js/issues"
+  },
+  "homepage": "https://github.com/ganderzz/Deadbolt.js#readme"
+}
