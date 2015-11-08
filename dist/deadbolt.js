@@ -3,7 +3,7 @@ var deadbolt = (function() {
     var queue = [];
     var validators = {
         email: function() {
-            return new RegExp("^(.+?)\@(.+?)(\.[a-zA-Z.]{2,})*$", "i");
+            return new RegExp("^(.+?)\@(.+?)(\.[a-zA-Z.]{2,})+$", "i");
         },
         phone: function() {
         	return new RegExp("((\\d)?\\(?(\\d){3}\\)?)?(\\s|-)?(\\d){3}(\\s|-)?(\\d){4}");
@@ -26,7 +26,7 @@ var deadbolt = (function() {
 
     deadbolt.fn = deadbolt.prototype = {
         _init: function(elem, options) {
-        	var qElem = document.querySelector(elem).querySelectorAll("[data-valid]");
+        	var qElem = elem.querySelectorAll("[data-valid]");
 
             if(options !== undefined) {
                 for(var key in options)

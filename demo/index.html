@@ -67,7 +67,7 @@
         <script src="../src/deadbolt.js"></script>
 
         <script>
-            var formCache = deadbolt(".myForm", {
+            var formCache = deadbolt(document.querySelector(".myForm"), {
                 endsWithIt: function() {
                     return new RegExp(".*(it)", "i");
                 }
