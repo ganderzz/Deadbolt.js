@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ganderzz/Deadbolt.js.svg)](https://travis-ci.org/ganderzz/Deadbolt.js)
+
 ### Deadbolt.js
 ##### Lightweight, nonintrusive form validation
 ================

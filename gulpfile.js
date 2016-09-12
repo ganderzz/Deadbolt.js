@@ -6,10 +6,10 @@ var uglify = require("gulp-uglify");
 
 var DEST = "dist/";
 
-gulp.task("default", function() {
+gulp.task("build-js", function() {
   return gulp.src("src/deadbolt.js")
-    .pipe(gulp.dest(DEST))
-    .pipe(uglify())
-    .pipe(rename({ extname: ".min.js" }))
-    .pipe(gulp.dest(DEST));
+		     .pipe(gulp.dest(DEST))
+		     .pipe(uglify())
+		     .pipe(rename({ extname: ".min.js" }))
+		     .pipe(gulp.dest(DEST));
 });
