@@ -12,7 +12,7 @@ describe("Deadbolt Framework initial Tests", function() {
     });
 });
 
-describe("isValid()", () => {
+describe("isValid()", function() {
     const element = document.createElement("form");
     const dblt = deadbolt(element);
 
