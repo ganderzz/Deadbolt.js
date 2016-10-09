@@ -1,5 +1,9 @@
  /** @namespace */
-var deadbolt = (function() {
+(function(name, func) {
+    if (typeof module != "undefined") module.exports = func();
+    else if (typeof define == "function" && typeof define.amd == "object") define(func);
+    else this[name] = func();
+})("deadbolt", function() {
     var queue = [];
     var validators = {
         email: function() {
@@ -29,8 +33,9 @@ var deadbolt = (function() {
         	var qElem = elem.querySelectorAll("[data-valid]");
 
             if(options !== undefined) {
-                for(var key in options)
+                for(var key in options) {
                     validators[key] = options[key];
+                }
             }
             for(var i = 0; i < qElem.length; i++) {
                 var validation = [],
@@ -39,8 +44,9 @@ var deadbolt = (function() {
 
                 for (var t = 0; t < what.length; t++) {
                     for (var key in validators) {
-                        if (what[t].match(new RegExp(key, "i")))
+                        if (what[t].match(new RegExp(key, "i"))) {
                             validation.push(validators[key](what[t].split("=")[1]));
+                        }
                     }
                 }
                 queue.push(new Array(tempElem, validation, false));
@@ -74,10 +80,13 @@ var deadbolt = (function() {
     deadbolt.isValid = deadbolt.prototype = function(callback) {
         var tempBool = true;
         for (var i = 0; i < queue.length; i++) {
-            if (deadbolt.fn._tester(queue[i]) === false)
+            if (deadbolt.fn._tester(queue[i]) === false) {
                 tempBool = false;
+            }
         }
-        callback(deadbolt);
+        if(typeof callback === "function") {
+            callback(deadbolt);
+        }
 
         return tempBool;
     }
@@ -107,4 +116,4 @@ var deadbolt = (function() {
     }
 
     return deadbolt;
-})();
+});
